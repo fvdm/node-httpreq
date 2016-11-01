@@ -60,6 +60,7 @@ function testResponse (test, err, data) {
     .isObject ('fail', 'data', data)
     .isObject ('fail', 'data.headers', headers)
     .isNotEmpty ('fail', 'data.headers.content-length', headers && headers['content-length'])
+    .isNotEmpty ('fail', 'data.headers.content-type', headers && headers['content-type'])
     .isExactly ('fail', 'data.statusCode', data && data.statusCode, 200)
     .isString ('fail', 'data.body', data && data.body)
     .isNotEmpty ('fail', 'data.body', data && data.body)
