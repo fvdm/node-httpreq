@@ -140,6 +140,29 @@ dotest.add ('Request options - .body', test => {
 });
 
 
+dotest.add ('Request options - headers', test => {
+  const options = {
+    headers: {
+      'X-Test': 'looking good'
+    }
+  };
+
+  app.get (config.url + '/options-headers', options, (err, data) => {
+    let body = null;
+
+    try {
+      body = JSON.parse (data.body);
+    } catch (e) {
+      // ignore
+    }
+
+    test (err)
+      .isExactly ('fail', 'data.body.x-test', body && body['x-test'], 'looking good')
+      .done ();
+  });
+});
+
+
 // Error: CANT_SEND_FILES_USING_GET
 dotest.add ('Error: CANT_SEND_FILES_USING_GET', test => {
   const options = {
