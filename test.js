@@ -18,13 +18,12 @@ function serverResponse (req, data, res) {
   let code = 200;
   let type = 'text/plain';
 
-  switch (req.url) {
-    case '/timeout':
-      setTimeout (() => {
-        // just wait longer then 1 ms
-      }, 10);
-      break;
+  // Slow down a little for reality check
+  setTimeout (() => {
+    // just wait
+  }, 100);
 
+  switch (req.url) {
     case '/options-body':
       body = data;
       break;
@@ -196,7 +195,7 @@ dotest.add ('Error: TIMEOUT', test => {
     timeout: 1
   };
 
-  app.get (config.url + '/timeout', options, (err, data) => {
+  app.get (config.url, options, (err, data) => {
     test ()
       .isError ('fail', 'err', err)
       .isExactly ('fail', 'err.code', err && err.code, 'TIMEOUT')
