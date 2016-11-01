@@ -1,17 +1,25 @@
-lib-cov
-*.seed
+# Logs
+logs
 *.log
+.*_history
+npm-debug.log*
+
+# Runtime data
+results
+pids
+*.pid
+*.seed
 *.csv
 *.dat
 *.out
-*.pid
 *.gz
 
-pids
-logs
-results
-
+lib-cov
+coverage
+.nyc_output
+.grunt
+.lock-wscript
+build/Release
 node_modules
-
-npm-debug.log
-.DS_Store
+jspm_packages
+.npm
