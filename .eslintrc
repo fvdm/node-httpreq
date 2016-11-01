@@ -1,6 +1,7 @@
 {
-  "ecmaFeatures": {
-    "modules": true
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "module"
   },
 
   "env": {
@@ -58,6 +59,7 @@
     "no-alert": 2,
     "no-caller": 2,
     "no-catch-shadow": 2,
+    "no-console": 1,
     "no-delete-var": 2,
     "no-div-regex": 2,
     "no-duplicate-case": 2,
@@ -71,7 +73,7 @@
     "no-floating-decimal": 2,
     "no-func-assign": 2,
     "no-implied-eval": 2,
-    "no-inline-comments": 1,
+    "no-inline-comments": 2,
     "no-invalid-regexp": 2,
     "no-label-var": 2,
     "no-labels": 2,
@@ -110,12 +112,12 @@
     "no-trailing-spaces": 2,
     "no-undef": 2,
     "no-undef-init": 2,
-    "no-undefined": 1,
-    "no-underscore-dangle": 2,
+    "no-undefined": 2,
+    "no-underscore-dangle": 1,
     "no-unexpected-multiline": 2,
     "no-unneeded-ternary": 2,
     "no-unreachable": 2,
-    "no-unused-vars": 1,
+    "no-unused-vars": 2,
     "no-use-before-define": 2,
     "no-useless-concat": 2,
     "no-warning-comments": 1,
@@ -127,7 +129,11 @@
     }],
     "one-var": [2, "never"],
     "operator-assignment": [2, "always"],
-    "operator-linebreak": [2, "before"],
+    "operator-linebreak": [2, "none", {
+      "overrides": {
+        "+": "before"
+      }
+    }],
     "padded-blocks": [2, "never"],
     "quote-props": [2, "consistent"],
     "quotes": [2, "single", "avoid-escape"],
