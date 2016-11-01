@@ -13,46 +13,53 @@ let config = {
 // Local webserver
 const server = http.createServer ();
 
+function serverResponse (req, data, res) {
+  let body = 'ok';
+  let code = 200;
+  let type = 'text/plain';
+
+  switch (req.url) {
+    case '/timeout':
+      setTimeout (() => {
+        // just wait longer then 1 ms
+      }, 10);
+      break;
+
+    case '/options-body':
+      body = data;
+      break;
+
+    case '/options-headers':
+      body = JSON.stringify (req.headers);
+      break;
+
+    default:
+      break;
+  }
+
+  res.writeHead (code, {
+    'Content-Type': type,
+    'Content-Length': body.length
+  });
+
+  res.end (body);
+}
+
 server.on ('request', (req, res) => {
   let data = [];
 
-  req.on ('data', ch => {
-    data.push (ch);
-  });
-
-  req.on ('end', () => {
-    let body = 'ok';
-    let code = 200;
-    let type = 'text/plain';
-
-    data = data.toString ('utf8');
-
-    switch (req.url) {
-      case '/timeout':
-        setTimeout (() => {
-          // just wait longer then 1 ms
-        }, 10);
-        break;
-
-      case '/options-body':
-        body = data;
-        break;
-
-      case '/options-headers':
-        body = JSON.stringify (req.headers);
-        break;
-
-      default:
-        break;
-    }
-
-    res.writeHead (code, {
-      'Content-Type': type,
-      'Content-Length': body.length
+  if (req.method !== 'GET') {
+    req.on ('data', ch => {
+      data.push (ch);
     });
-
-    res.end (body);
-  });
+  
+    req.on ('end', () => {
+      data = data.toString ('utf8');
+      serverResponse (req, data, res);
+    });
+  } else {
+    serverResponse (req, null, res);
+  }
 });
 
 
