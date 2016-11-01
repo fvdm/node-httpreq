@@ -6,7 +6,7 @@ const app = require ('.');
 // Test config
 let config = {
   url: '',
-  dlpath: './test.tmp'
+  dlpath: './test.dat'
 };
 
 
