@@ -22,7 +22,7 @@ server.on ('request', (req, res) => {
     case '/timeout':
       setTimeout (() => {
         // just wait longer then 1 ms
-      }, 2);
+      }, 10);
       break;
 
     default:
