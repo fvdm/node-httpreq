@@ -38,6 +38,10 @@ server.on ('request', (req, res) => {
         body = data;
         break;
 
+      case '/options-headers':
+        body = JSON.stringify (req.headers);
+        break;
+
       default:
         break;
     }
