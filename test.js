@@ -122,6 +122,20 @@ dotest.add ('Method .download - with path', test => {
 });
 
 
+// Request options
+dotest.add ('Request options - .body', test => {
+  const options = {
+    body: 'wacky wheels'
+  };
+
+  app.post (config.url + '/options-body', options, (err, data) => {
+    test (err)
+      .isExactly ('fail', 'data.body', data && data.body, 'wacky wheels')
+      .done ();
+  });
+});
+
+
 // Error: CANT_SEND_FILES_USING_GET
 dotest.add ('Error: CANT_SEND_FILES_USING_GET', test => {
   const options = {
