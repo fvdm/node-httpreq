@@ -145,7 +145,7 @@ dotest.add ('Error: TIMEOUT', test => {
 });
 
 
-// Start webserver and run the tests
+// Start webserver on any available port and run the tests
 server.listen (0, '127.0.0.1', () => {
   config.url = 'http://127.0.0.1:' + server.address().port;
   dotest.run ();
