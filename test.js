@@ -14,27 +14,41 @@ let config = {
 const server = http.createServer ();
 
 server.on ('request', (req, res) => {
-  let body = 'ok';
-  let code = 200;
-  let type = 'text/plain';
+  let data = [];
 
-  switch (req.url) {
-    case '/timeout':
-      setTimeout (() => {
-        // just wait longer then 1 ms
-      }, 10);
-      break;
-
-    default:
-      break;
-  }
-
-  res.writeHead (code, {
-    'Content-Type': type,
-    'Content-Length': body.length
+  req.on ('data', ch => {
+    data.push (ch);
   });
 
-  res.end (body);
+  req.on ('end', () => {
+    let body = 'ok';
+    let code = 200;
+    let type = 'text/plain';
+
+    data = data.toString ('utf8');
+
+    switch (req.url) {
+      case '/timeout':
+        setTimeout (() => {
+          // just wait longer then 1 ms
+        }, 10);
+        break;
+
+      case '/options-body':
+        body = data;
+        break;
+
+      default:
+        break;
+    }
+
+    res.writeHead (code, {
+      'Content-Type': type,
+      'Content-Length': body.length
+    });
+
+    res.end (body);
+  });
 });
 
 
